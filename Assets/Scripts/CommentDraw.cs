@@ -107,8 +107,6 @@ public class CommentDraw : MonoBehaviour
 
         //chat
         commentChatButton.onClick.AddListener(TaskOnClick);
-        counter = 1;
-
         freezeBackground = true;
 
         GameObject button = pickModelPanel.transform.Find("CubeButton").gameObject;
