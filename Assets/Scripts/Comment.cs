@@ -7,6 +7,9 @@ public class Comment : MonoBehaviour
     public string text;
     public string chat;
 
+    int like;
+    int dislike;
+
     // Start is called before the first frame update
     void Start()
     {
