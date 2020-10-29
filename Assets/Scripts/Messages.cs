@@ -4,26 +4,22 @@ using UnityEngine;
 
 public class Messages : MonoBehaviour
 {
+    public static float nr;
 
-    static Messages instance;
-    int like;
-    int dislike;
+    public static string text;
+    public static string created;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static float likes;
+    public static float dislikes;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    /*add to a list
 
-    public void EditComment2()
-    {
-        CommentDraw.EditComment(this);
-
-    }
+    post.MainComments.Add( new MainComment
+        {
+            Message = vmMessage,
+            Created = DateTime.Now,
+            Likes = 0,
+            Dislikes = 0
+        });
+    */
 }

@@ -69,6 +69,9 @@ public class CommentDraw : MonoBehaviour
     [SerializeField] private InputField inputField = null; //Entwurf
     [SerializeField] private GameObject canvas = null;
 
+    
+    float like;
+    float dislike;
     private string message;
     public Button commentChatButton;
 
@@ -102,10 +105,12 @@ public class CommentDraw : MonoBehaviour
         drawTouchReleased = false;
         pitch = -45;
         yaw = 45;
+        like = 0;
+        dislike = 0;
 
         //chat
         commentChatButton.onClick.AddListener(TaskOnClick);
-        
+
         freezeBackground = true;
 
         GameObject button = pickModelPanel.transform.Find("CubeButton").gameObject;
@@ -288,7 +293,7 @@ public class CommentDraw : MonoBehaviour
 
             }
         }
-
+      
 
     }
 
@@ -515,7 +520,8 @@ public class CommentDraw : MonoBehaviour
     }
 
 
-
+    
+    
     public void Comment()
     {
         chatbox.SetActive(false);
@@ -527,9 +533,13 @@ public class CommentDraw : MonoBehaviour
         else
         {
 
+            
             Comment comment = commentMarker.GetComponent<Comment>();
+            //Messages messages = messageMarker.GetComponent<Messages>();
 
             comment.chat = chatText.text; //chat
+            //messages.likes = like;
+            //messages.dislikes = dislike;
 
             comment.text = field.text;
             comment.enabled = true;
@@ -610,9 +620,8 @@ public class CommentDraw : MonoBehaviour
         chatbox.SetActive(true);
         PopupPanel.SetActive(false);
 
-
-
-
+        
+        
         chatText.text = comment.chat;
 
         field.text = comment.text;
@@ -622,28 +631,50 @@ public class CommentDraw : MonoBehaviour
         if (line)
             line.enabled = true;
     }
-    
 
-    void TaskOnClick() //chat
+    public void Like ()
     {
+        like++;
+    }
+
+    public void Dislike ()
+    {
+        dislike ++ ;
+    }
+
+    public void TaskOnClick() //chat
+    {
+        float counter = 1;
 
         if (inputField.text != "")
         {
-            
+
 
             string currentTime = DateTime.Now.ToString("ddd, dd.MM.yy HH:mm");
 
             message = inputField.text;
 
-            int like;
-            int dislike;
-            like = 0;
-            dislike = 0;
+            Button btn = LikeButton.GetComponent<Button>();
+            btn.onClick.AddListener(Like);
+            Button btn2 = DislikeButton.GetComponent<Button>();
+            btn2.onClick.AddListener(Dislike);
 
-            chatMarker = Instantiate(messageMarker, messageMarker.transform.parent);
+            
+            /*
+             chatMarker = Instantiate(messageMarker, messageMarker.transform.parent);
+
+            Messages.nr = counter;
+            Messages.text = message;
+            Messages.created = currentTime;
+            Messages.likes = like;
+            Messages.dislikes = dislike;
+
+            */
 
 
-            if (like == 0 && dislike != 0)
+
+            /*
+             * if (like == 0 && dislike != 0)
             {
                 chatText.text += "[" + currentTime + "] <link=linktest> like/dislike </link>   Dislikes: " + dislike + Environment.NewLine + message + Environment.NewLine + Environment.NewLine;
             }
@@ -651,19 +682,26 @@ public class CommentDraw : MonoBehaviour
             {
                 chatText.text += "[" + currentTime + "]  <link=linktest> like/dislike </link>Likes: " + like + Environment.NewLine + message + Environment.NewLine + Environment.NewLine;
             }
+            */
             if (like == 0 && dislike == 0)
             {
-                chatText.text += "[" + currentTime + "] <link=linktest> like/dislike </link>" + Environment.NewLine + message + Environment.NewLine + Environment.NewLine;
+                chatText.text += "[ nr "+counter + currentTime + "] <link=linktest> like/dislike </link>" + Environment.NewLine + message + Environment.NewLine + Environment.NewLine;
             }
             else
             {
-                chatText.text += "[" + currentTime + "] <link=linktest> like/dislike </link> Likes: " + like + "  Dislikes: " + dislike + Environment.NewLine + message + Environment.NewLine + Environment.NewLine;
+                chatText.text += "[nr "+counter + currentTime + "] <link=linktest> like/dislike </link> Likes: " + like + "  Dislikes: " + dislike + Environment.NewLine + message + Environment.NewLine + Environment.NewLine;
             }
 
 
             message = null;
             inputField.text = string.Empty;
 
+            counter++;
+
+            GameObject msg = new GameObject();
+            msg.AddComponent<Text>();
+            msg.transform.position = new Vector3(0.5f, 0.5f, 0.0f);
+            msg.GetComponent<Text>().text = "[nr " + counter + currentTime + "] <link=linktest> like/dislike </link> Likes: " + like + "  Dislikes: " + dislike + Environment.NewLine + message + Environment.NewLine + Environment.NewLine; ;
 
         }
 
@@ -889,8 +927,6 @@ public class CommentDraw : MonoBehaviour
             markerPanel.GetComponentInChildren<Text>().text = ModelPlaceString;
         markerPanel.SetActive(true);
     }
-
-
 
 
 }
