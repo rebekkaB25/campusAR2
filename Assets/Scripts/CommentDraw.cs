@@ -698,11 +698,7 @@ public class CommentDraw : MonoBehaviour
 
             counter++;
 
-            GameObject msg = new GameObject();
-            msg.AddComponent<Text>();
-            msg.transform.position = new Vector3(0.5f, 0.5f, 0.0f);
-            msg.GetComponent<Text>().text = "[nr " + counter + currentTime + "] <link=linktest> like/dislike </link> Likes: " + like + "  Dislikes: " + dislike + Environment.NewLine + message + Environment.NewLine + Environment.NewLine; ;
-
+            
         }
 
     }
@@ -761,7 +757,7 @@ public class CommentDraw : MonoBehaviour
                 GetComponent<ARCameraBackground>().enabled = false;
 
 
-                tracked.transform.SetParent(null); //camera is not parent, flexible camera in 3d mode
+                //tracked.transform.SetParent(null); //camera is not parent, flexible camera in 3d mode
 
                 is3D = true;
             }
