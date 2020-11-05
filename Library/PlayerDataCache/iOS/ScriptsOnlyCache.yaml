@@ -5,6 +5,7 @@ ScriptsOnlyBuild:
     - ClickableText
     - Comment
     - CommentDraw
+    - FloorToggles
     - IMG2Sprite
     - KeepScale
     - Messages
@@ -71,7 +72,10 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.ScrollRect
     - UnityEngine.UI.Scrollbar
     - UnityEngine.UI.Text
+    - UnityEngine.UI.Toggle
     - UnityEngine.UI.VerticalLayoutGroup
+    com.unity.multiplayer-hlapi.Runtime.dll:
+    - UnityEngine.Networking.NetworkCallbacks
   sceneClasses:
     Assets/Scenes/ARCaritas.unity:
     - Class: 1
@@ -195,11 +199,15 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 15646}
     - Class: 114
+      Script: {instanceID: 15682}
+    - Class: 114
       Script: {instanceID: 17646}
     - Class: 114
       Script: {instanceID: 20744}
     - Class: 114
       Script: {instanceID: 43184}
+    - Class: 114
+      Script: {instanceID: 49568}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -1899,6 +1907,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: b969afcf3f0523850cf2677743d354b7
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: FloorToggles
   platform: 9
   scenePathNames:
   - Assets/Scenes/ARCaritas.unity

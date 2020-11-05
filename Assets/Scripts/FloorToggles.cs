@@ -1,60 +1,50 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.XR.ARFoundation;
-using TMPro;
+
 
 public class FloorToggles : MonoBehaviour
 {
-    public Button EGbutton;
-    public Button OG1button;
-    public Button OG2button;
+    public Toggle EGtoggle;
+    public Toggle OG1toggle;
+    public Toggle OG2toggle;
+
 
     public GameObject EG;
     public GameObject OG1;
     public GameObject OG2;
 
-    // Start is called before the first frame update
-    void Start()
+    public GameObject Dieburg;
+
+    public void Start()
     {
-        
+      /*  EG.transform.SetParent(Camera.main.transform);
+        OG1.transform.SetParent(Camera.main.transform);
+        OG2.transform.SetParent(Camera.main.transform); */
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Update()
     {
-        
+        if (EGtoggle.GetComponent<Toggle>().isOn == false && OG1toggle.GetComponent<Toggle>().isOn == false && OG2toggle.GetComponent<Toggle>().isOn == false)
+        {
+            Dieburg.SetActive(true);
+        }
     }
-    public void ToggleEG (Button EG)
+    public void ToggleEG (bool newValue1)
     {
-        if (EGbutton.GetComponent<Toggle>().isOn == true)
-        {
-            EG.SetActive(true);
-        }
+        EG.SetActive(newValue1);
+        Dieburg.SetActive(false);
+      
+    }
 
+    public void ToggleOG1(bool newValue2)
+    {
+        OG1.SetActive(newValue2);
+        Dieburg.SetActive(false);
+    }
 
-        if (button.GetComponent<Image>().color == button.colors.normalColor)
-        {
-            comments.AddRange(GameObject.FindGameObjectsWithTag("Marker"));
-            foreach (GameObject go in comments)
-            {
-                if (go.GetComponentInChildren<LineRenderer>() is null)
-                {
-                    go.SetActive(false);
-                }
-            }
-            button.GetComponent<Image>().color = button.colors.disabledColor;
-        }
-        else
-        {
-            foreach (GameObject go in comments)
-            {
-                go.SetActive(true);
-            }
-            button.GetComponent<Image>().color = button.colors.normalColor;
-        }
+    public void ToggleOG2(bool newValue3)
+    {
+        OG2.SetActive(newValue3);
+        Dieburg.SetActive(false);
     }
 }
