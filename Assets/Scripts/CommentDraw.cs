@@ -488,6 +488,8 @@ public class CommentDraw : MonoBehaviour
                     spawned.transform.localPosition = Vector3.zero;
                     spawned.transform.localRotation = Quaternion.identity;
 
+                    spawned.transform.SetParent(null); //stabilise lines
+
                     marker.SetActive(false);
                 }
                 else

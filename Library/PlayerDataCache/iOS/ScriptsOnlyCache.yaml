@@ -5,7 +5,6 @@ ScriptsOnlyBuild:
     - ClickableText
     - Comment
     - CommentDraw
-    - FloorToggles
     - IMG2Sprite
     - KeepScale
     - Messages
@@ -74,8 +73,6 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Text
     - UnityEngine.UI.Toggle
     - UnityEngine.UI.VerticalLayoutGroup
-    com.unity.multiplayer-hlapi.Runtime.dll:
-    - UnityEngine.Networking.NetworkCallbacks
   sceneClasses:
     Assets/Scenes/ARCaritas.unity:
     - Class: 1
@@ -119,19 +116,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11414}
     - Class: 114
-      Script: {instanceID: 11440}
+      Script: {instanceID: 11438}
     - Class: 114
-      Script: {instanceID: 11450}
+      Script: {instanceID: 11448}
     - Class: 114
-      Script: {instanceID: 11590}
+      Script: {instanceID: 11588}
     - Class: 114
-      Script: {instanceID: 11646}
+      Script: {instanceID: 11644}
     - Class: 114
-      Script: {instanceID: 11710}
+      Script: {instanceID: 11708}
     - Class: 114
-      Script: {instanceID: 11832}
+      Script: {instanceID: 11830}
     - Class: 114
-      Script: {instanceID: 11890}
+      Script: {instanceID: 11888}
     - Class: 114
       Script: {instanceID: 12028}
     - Class: 114
@@ -201,13 +198,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 15682}
     - Class: 114
-      Script: {instanceID: 17646}
+      Script: {instanceID: 18214}
     - Class: 114
-      Script: {instanceID: 20744}
+      Script: {instanceID: 23032}
     - Class: 114
-      Script: {instanceID: 43184}
-    - Class: 114
-      Script: {instanceID: 49568}
+      Script: {instanceID: 29658}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -515,6 +510,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner.Callbacks
     className: TestResultRendererCallback
+  - hash:
+      serializedVersion: 2
+      Hash: b969afcf3f0523850cf2677743d354b7
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: FloorToggles
   - hash:
       serializedVersion: 2
       Hash: 42683d3eafaa17b2142648e6aa4438d2
@@ -1907,12 +1908,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: b969afcf3f0523850cf2677743d354b7
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: FloorToggles
   platform: 9
   scenePathNames:
   - Assets/Scenes/ARCaritas.unity
