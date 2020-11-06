@@ -12595,6 +12595,7 @@ MonoBehaviour:
   LikeButton: {fileID: 250763821}
   DislikeButton: {fileID: 173328880}
   PopupPanel: {fileID: 951132960}
+  FloorToggles: {fileID: 1820158482}
   rotateSpeed: 0.2
   manager: {fileID: 857573725}
   chatText: {fileID: 1879540310}
@@ -19480,7 +19481,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: -1.08603855e+21, z: 4.5757e-41, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: -9.6678435e+20, z: 4.5757e-41, w: -1}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -20250,7 +20251,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148743961989}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.326, y: -0.0848, z: 0.561}
+  m_LocalPosition: {x: 0.326, y: -0.0848, z: 0.482}
   m_LocalScale: {x: 0.22, y: 0.22, z: 0.22}
   m_Children:
   - {fileID: 2834750276709551634}

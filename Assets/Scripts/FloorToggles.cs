@@ -16,13 +16,13 @@ public class FloorToggles : MonoBehaviour
     public GameObject Dieburg;
 
     public void Start()
-    {
+    {/*
         EG.transform.SetParent(null);
         OG1.transform.SetParent(null);
         OG2.transform.SetParent(null);
         EG.transform.position = new Vector3(1.55f, 0.118f, 1.32f);
         OG1.transform.position = new Vector3(1.55f, 0.118f, 1.32f);
-        OG2.transform.position = new Vector3(1.55f, 0.118f, 1.32f);
+        OG2.transform.position = new Vector3(1.55f, 0.118f, 1.32f);*/
     }
 
     public void Update()

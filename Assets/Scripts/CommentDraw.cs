@@ -29,6 +29,8 @@ public class CommentDraw : MonoBehaviour
     public GameObject DislikeButton;
     public GameObject PopupPanel;
 
+    public GameObject FloorToggles;
+
     static CommentDraw inst;
     GameObject tracked;
     float yaw, pitch, startYaw, startPitch;
@@ -712,7 +714,7 @@ public class CommentDraw : MonoBehaviour
     {
         if (tracked)
         {
-            if (is3D)
+            if (is3D) //goes in AR
             {
                 if (markerPanel.GetComponentInChildren<Text>().text != DrawString || !markerPanel.activeSelf)
                 {
@@ -737,9 +739,13 @@ public class CommentDraw : MonoBehaviour
                     markerPanel.GetComponentInChildren<Text>().text = ModelPlaceString;
 
                 is3D = false;
+                FloorToggles.SetActive(false);//when in ar menu is invisible
             }
-            else
+            else //goes in 3D
             {
+               
+                FloorToggles.SetActive(true); //menu visible
+
                 manager.enabled = false;
                 tracked.transform.SetParent(Camera.main.transform);
                 tracked.transform.localPosition = new Vector3(0, 0, 0.5f);
@@ -769,10 +775,12 @@ public class CommentDraw : MonoBehaviour
         {
             if (is3D)
             {
-
+                FloorToggles.SetActive(false);
             }
             else
             {
+                FloorToggles.SetActive(true);
+
                 manager.enabled = false;
                 tracked = Instantiate(manager.trackedImagePrefab);
                 tracked.transform.SetParent(Camera.main.transform);
