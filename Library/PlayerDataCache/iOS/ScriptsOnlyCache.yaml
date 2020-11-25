@@ -174,35 +174,35 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 14680}
     - Class: 114
-      Script: {instanceID: 14806}
+      Script: {instanceID: 14808}
     - Class: 114
-      Script: {instanceID: 14818}
+      Script: {instanceID: 14820}
     - Class: 114
-      Script: {instanceID: 14862}
+      Script: {instanceID: 14866}
     - Class: 114
-      Script: {instanceID: 15180}
+      Script: {instanceID: 15184}
     - Class: 114
-      Script: {instanceID: 15204}
+      Script: {instanceID: 15208}
     - Class: 114
-      Script: {instanceID: 15226}
+      Script: {instanceID: 15230}
     - Class: 114
-      Script: {instanceID: 15398}
+      Script: {instanceID: 15402}
     - Class: 114
-      Script: {instanceID: 15452}
+      Script: {instanceID: 15456}
     - Class: 114
-      Script: {instanceID: 15518}
+      Script: {instanceID: 15522}
     - Class: 114
-      Script: {instanceID: 15560}
+      Script: {instanceID: 15564}
     - Class: 114
-      Script: {instanceID: 15646}
+      Script: {instanceID: 15650}
     - Class: 114
-      Script: {instanceID: 15682}
+      Script: {instanceID: 15686}
     - Class: 114
-      Script: {instanceID: 18214}
+      Script: {instanceID: 19042}
     - Class: 114
-      Script: {instanceID: 23032}
+      Script: {instanceID: 23516}
     - Class: 114
-      Script: {instanceID: 29658}
+      Script: {instanceID: 30608}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -488,7 +488,7 @@ ScriptsOnlyBuild:
     className: FingersScript
   - hash:
       serializedVersion: 2
-      Hash: 094c9281177d63a1c421b856e5c93a6b
+      Hash: bd181b880f292714239537a085d9a136
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CommentDraw
@@ -1514,6 +1514,12 @@ ScriptsOnlyBuild:
     className: DataPrivacyButton
   - hash:
       serializedVersion: 2
+      Hash: 2b46f6bc59154d0d49580dd65daaf230
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MultipleObjectSpawn
+  - hash:
+      serializedVersion: 2
       Hash: f336e086360abe49a3323e5f1583c35a
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -1542,6 +1548,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: DigitalRubyShared
     className: FingersJoystickScript
+  - hash:
+      serializedVersion: 2
+      Hash: 65d2bea3c2bb5fa611a79914afc89214
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TrackedImageInfoMultipleManager
   - hash:
       serializedVersion: 2
       Hash: 3cf156985df62fac63708d6bed3583bf
