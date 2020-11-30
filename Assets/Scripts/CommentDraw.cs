@@ -29,7 +29,7 @@ public class CommentDraw : MonoBehaviour
     public GameObject DislikeButton;
     public GameObject PopupPanel;
 
-    public GameObject FloorToggles;
+    public GameObject campModel;
 
     static CommentDraw inst;
     GameObject tracked;
@@ -98,6 +98,8 @@ public class CommentDraw : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //campModel.SetActive(true);  versuch, tracking stimmt noch nicht!!
+
         inst = this;
         is3D = false;
         infos = new List<GameObject>();
@@ -143,9 +145,9 @@ public class CommentDraw : MonoBehaviour
 
         if (tracked)
         {
-            if (startWith3D)
+            if (startWith3D) //is true after switching to 3D mode
             {
-                foreach (GameObject go in GameObject.FindGameObjectsWithTag("Tracked"))
+                foreach (GameObject go in GameObject.FindGameObjectsWithTag("Tracked")) //finds tracked objects and links them to 3D-model
                 {
                     if (go != tracked)
                     {
@@ -166,9 +168,9 @@ public class CommentDraw : MonoBehaviour
                     }
                 }
             }
-            marker.transform.parent = tracked.transform;
+            marker.transform.parent = tracked.transform; //links markers to model in 3d mode
         }
-        else
+        else //in ar mode, tracked are all the tracked objects but the 3d model
             tracked = GameObject.FindGameObjectWithTag("Tracked");
 
 
@@ -461,7 +463,7 @@ public class CommentDraw : MonoBehaviour
                     else
                     {
                         commentMarker = Instantiate(marker);
-                        commentMarker.transform.SetParent(tracked.transform.Find("CommentParent"));
+                        commentMarker.transform.SetParent(tracked.transform.Find("CommentParent")); //auch parent für floors?
                     }
                     commentMarker.GetComponent<SphereCollider>().enabled = true;
 
@@ -489,8 +491,6 @@ public class CommentDraw : MonoBehaviour
                     lineRenderer = spawned.GetComponent<LineRenderer>();
                     spawned.transform.localPosition = Vector3.zero;
                     spawned.transform.localRotation = Quaternion.identity;
-
-                    spawned.transform.SetParent(null); //stabilise lines
 
                     marker.SetActive(false);
                 }
@@ -553,7 +553,7 @@ public class CommentDraw : MonoBehaviour
         if (lineRenderer)
         {
             lineRenderer.enabled = false;
-            if (!is3D)
+            if (!is3D) //in AR mode tracked has to be null
             {
                 tracked.transform.parent = null;
                 manager.enabled = true;
@@ -708,7 +708,51 @@ public class CommentDraw : MonoBehaviour
     }
 
 
+public void DisableModel(Toggle toggle1) //try to disable models, works in 3d
+    {
+       
+        if (is3D)
+        {
+            
+            //campModel = manager.trackedImagePrefab;
+            toggle1 = toggle1.GetComponent<Toggle>();
+            /*
+            if (toggle1.isOn)
+            {
+                tracked.SetActive(true);
+            }
+            else
+            {
+                tracked.SetActive(false);
+            }
+            */
+            if (toggle1.isOn)
+            {
+                campModel.transform.GetChild(0).gameObject.SetActive(true); //versuch, bei campmodel geht tracking bzw platzierung nicht, muss in switchar angepasst werden
+            }
+            else
+            {
+                campModel.transform.GetChild(0).gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            //GameObject campModel;
+            //campModel = manager.trackedImagePrefab;
+            toggle1 = toggle1.GetComponent<Toggle>();
 
+            if (toggle1.isOn)
+            {
+                campModel.transform.GetChild(0).gameObject.SetActive(true);
+            }
+            else
+            {
+                campModel.transform.GetChild(0).gameObject.SetActive(false);
+            }
+        }
+    }
+
+    
 
     public void SwitchAR3D()
     {
@@ -739,12 +783,12 @@ public class CommentDraw : MonoBehaviour
                     markerPanel.GetComponentInChildren<Text>().text = ModelPlaceString;
 
                 is3D = false;
-                FloorToggles.SetActive(false);//when in ar menu is invisible
+                
             }
             else //goes in 3D
             {
                
-                FloorToggles.SetActive(true); //menu visible
+                
 
                 manager.enabled = false;
                 tracked.transform.SetParent(Camera.main.transform);
@@ -771,18 +815,18 @@ public class CommentDraw : MonoBehaviour
             }
 
         }
-        else
+        else // !tracked, anfangszustand
         {
-            if (is3D)
+            if (is3D) 
             {
-                FloorToggles.SetActive(false);
+                
             }
-            else
+            else //Ar switches to 3D for the first time, initiating the visible things in 3d mode
             {
-                FloorToggles.SetActive(true);
+                
 
                 manager.enabled = false;
-                tracked = Instantiate(manager.trackedImagePrefab);
+                tracked = Instantiate(manager.trackedImagePrefab); //important for changing models, imports model in 3d mode
                 tracked.transform.SetParent(Camera.main.transform);
                 tracked.transform.localPosition = new Vector3(0, 0, 0.5f);
                 tracked.SetActive(true);
@@ -815,6 +859,7 @@ public class CommentDraw : MonoBehaviour
             foreach (GameObject go in infos)
             {
                 go.SetActive(false);
+
             }
             button.GetComponent<Image>().color = button.colors.disabledColor;
         }
@@ -823,6 +868,7 @@ public class CommentDraw : MonoBehaviour
             foreach (GameObject go in infos)
             {
                 go.SetActive(true);
+                go.transform.SetParent(Camera.main.transform);
             }
             button.GetComponent<Image>().color = button.colors.normalColor;
         }

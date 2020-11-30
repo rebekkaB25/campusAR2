@@ -34,6 +34,8 @@ namespace Scripts
         {
             base.LateUpdate();
 
+            var camera = Camera.main; //cameratests
+
             if (!_fadeOutOverDistance) return;
 
             var cameraDistance = Vector3.Distance(Vector3.zero, transform.position);
@@ -59,6 +61,7 @@ namespace Scripts
                 m_TextComponent.alpha = alpha;
 
             if (_billboardLine)
+                _billboardLine.transform.SetParent(camera.transform); //try to stabilise
                 _billboardLine.SetAlpha(alpha);
         }
     }
