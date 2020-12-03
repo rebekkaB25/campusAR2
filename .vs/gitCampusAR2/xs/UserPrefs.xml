@@ -1,19 +1,15 @@
 ﻿<Properties StartupConfiguration="{0A92EB5B-5BE2-E97C-60D3-3662FD461942}|">
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CommentDraw.cs">
     <Files>
-      <File FileName="Assets/Scripts/CommentDraw.cs" Line="865" Column="18" />
-      <File FileName="Assets/Scripts/Messages.cs" />
-      <File FileName="Assets/Scripts/ClickableText.cs" />
-      <File FileName="Assets/Scripts/Comment.cs" />
-      <File FileName="Assets/Scripts/FloorToggles.cs" />
-      <File FileName="Assets/Scripts/KeepScale.cs" />
+      <File FileName="Assets/Scripts/CommentDraw.cs" Line="887" Column="1" />
       <File FileName="Assets/Scripts/BillboardLine.cs" />
       <File FileName="Assets/Scripts/AdvancedBillboardAR.cs" />
+      <File FileName="Library/PackageCache/com.unity.xr.arfoundation@3.0.0-preview.4/Runtime/AR/ARTrackedImage.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="ff107071-d2ed-48bc-87cd-232a0054c54e" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="39bb34bf-4b84-4122-9e9b-cffba73e3ad5" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

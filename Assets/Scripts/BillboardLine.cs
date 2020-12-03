@@ -32,6 +32,7 @@ namespace Scripts
                 var ownPos = camera.WorldToScreenPoint(_handleLeft.transform.position);
                 var targetPos = camera.WorldToScreenPoint(_target.transform.position);
                 var isHorizontal = true;
+                
 
                 if (ownPos.x < targetPos.x)
                 {

@@ -7,6 +7,8 @@ TagManager:
   - billboard
   - Tracked
   - Marker
+  - Water
+  - campus
   layers:
   - Default
   - TransparentFX

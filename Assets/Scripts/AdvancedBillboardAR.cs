@@ -34,7 +34,7 @@ namespace Scripts
         {
             base.LateUpdate();
 
-            var camera = Camera.main; //cameratests
+            //var camera = Camera.main; //cameratests
 
             if (!_fadeOutOverDistance) return;
 
@@ -61,7 +61,7 @@ namespace Scripts
                 m_TextComponent.alpha = alpha;
 
             if (_billboardLine)
-                _billboardLine.transform.SetParent(camera.transform); //try to stabilise
+                //_billboardLine.transform.SetParent(camera.transform); //try to stabilise
                 _billboardLine.SetAlpha(alpha);
         }
     }

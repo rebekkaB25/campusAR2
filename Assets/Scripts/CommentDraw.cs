@@ -29,7 +29,8 @@ public class CommentDraw : MonoBehaviour
     public GameObject DislikeButton;
     public GameObject PopupPanel;
 
-    public GameObject campModel;
+    public GameObject floors;
+    public GameObject campus_plane;
 
     static CommentDraw inst;
     GameObject tracked;
@@ -44,7 +45,7 @@ public class CommentDraw : MonoBehaviour
     public ARTrackedImageManager manager;
     Vector3 startPos;
 
-    List<GameObject> infos, comments, drawings;
+    List<GameObject> infos, comments, drawings, models;
 
     string Comment3DString = "Legen Sie die Position für den Kommentar fest, " + Environment.NewLine + "indem Sie auf die entsprechende Stelle tippen.";
     string CommentARString = "Legen Sie die Position für den Kommentar fest," + Environment.NewLine +
@@ -98,13 +99,16 @@ public class CommentDraw : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //campModel.SetActive(true);  versuch, tracking stimmt noch nicht!!
+        
 
         inst = this;
         is3D = false;
         infos = new List<GameObject>();
         comments = new List<GameObject>();
         drawings = new List<GameObject>();
+
+        models = new List<GameObject>();
+
         positions = new List<Vector3>();
         drawTouchReleased = false;
         pitch = -45;
@@ -171,7 +175,9 @@ public class CommentDraw : MonoBehaviour
             marker.transform.parent = tracked.transform; //links markers to model in 3d mode
         }
         else //in ar mode, tracked are all the tracked objects but the 3d model
-            tracked = GameObject.FindGameObjectWithTag("Tracked");
+           tracked = GameObject.FindGameObjectWithTag("Tracked");
+
+
 
 
         if (Input.touchCount > 0)
@@ -707,16 +713,16 @@ public class CommentDraw : MonoBehaviour
 
     }
 
-
+/*
 public void DisableModel(Toggle toggle1) //try to disable models, works in 3d
     {
        
         if (is3D)
         {
             
-            //campModel = manager.trackedImagePrefab;
+           // floors = Instantiate(manager.trackedImagePrefab);
             toggle1 = toggle1.GetComponent<Toggle>();
-            /*
+            //
             if (toggle1.isOn)
             {
                 tracked.SetActive(true);
@@ -725,34 +731,36 @@ public void DisableModel(Toggle toggle1) //try to disable models, works in 3d
             {
                 tracked.SetActive(false);
             }
-            */
+           //
             if (toggle1.isOn)
             {
-                campModel.transform.GetChild(0).gameObject.SetActive(true); //versuch, bei campmodel geht tracking bzw platzierung nicht, muss in switchar angepasst werden
+                
+                floors.transform.GetChild(0).gameObject.SetActive(true); //versuch, bei floors geht tracking bzw platzierung nicht, muss in switchar angepasst werden
             }
             else
             {
-                campModel.transform.GetChild(0).gameObject.SetActive(false);
+                floors.transform.GetChild(0).gameObject.SetActive(false);
             }
         }
         else
         {
-            //GameObject campModel;
-            //campModel = manager.trackedImagePrefab;
+            //GameObject floors;
+            //floors = manager.trackedImagePrefab;
             toggle1 = toggle1.GetComponent<Toggle>();
 
             if (toggle1.isOn)
             {
-                campModel.transform.GetChild(0).gameObject.SetActive(true);
+                floors.transform.GetChild(0).gameObject.SetActive(true);
             }
             else
             {
-                campModel.transform.GetChild(0).gameObject.SetActive(false);
+                floors.transform.GetChild(0).gameObject.SetActive(false);
             }
         }
+            
     }
 
-    
+    */
 
     public void SwitchAR3D()
     {
@@ -765,6 +773,8 @@ public void DisableModel(Toggle toggle1) //try to disable models, works in 3d
                     tracked.SetActive(false);
                     tracked.transform.parent = null;
                     manager.enabled = true;
+               
+                  
                 }
                 else
                 {
@@ -788,8 +798,6 @@ public void DisableModel(Toggle toggle1) //try to disable models, works in 3d
             else //goes in 3D
             {
                
-                
-
                 manager.enabled = false;
                 tracked.transform.SetParent(Camera.main.transform);
                 tracked.transform.localPosition = new Vector3(0, 0, 0.5f);
@@ -821,18 +829,22 @@ public void DisableModel(Toggle toggle1) //try to disable models, works in 3d
             {
                 
             }
-            else //Ar switches to 3D for the first time, initiating the visible things in 3d mode
+            else //Ar switches to 3D for the first time, initiating tracked as the plane+panels
             {
                 
-
                 manager.enabled = false;
-                tracked = Instantiate(manager.trackedImagePrefab); //important for changing models, imports model in 3d mode
+                tracked = Instantiate(manager.trackedImagePrefab); //important for changing models, imports model in 3d model
+              
                 tracked.transform.SetParent(Camera.main.transform);
                 tracked.transform.localPosition = new Vector3(0, 0, 0.5f);
                 tracked.SetActive(true);
                 pitch = Mathf.Clamp(pitch, -90, 0);
                 tracked.transform.localEulerAngles = new Vector3(0, yaw, 0);
                 tracked.transform.Rotate(Camera.main.transform.right, pitch, Space.World);
+
+
+
+
                 if (markerPanel.GetComponentInChildren<Text>().text == CommentARString)
                     markerPanel.GetComponentInChildren<Text>().text = Comment3DString;
 
@@ -848,6 +860,70 @@ public void DisableModel(Toggle toggle1) //try to disable models, works in 3d
 
                 is3D = true;
             }
+        }
+    }
+
+    public void ToggleModel(Button button)
+    {
+        if (button.GetComponent<Image>().color == button.colors.normalColor)
+        {
+            models.AddRange(GameObject.FindGameObjectsWithTag("campus"));
+            foreach (GameObject go in models)
+            {
+
+                var meshR = go.GetComponent<MeshRenderer>();
+                meshR.enabled = false;
+               // go.SetActive(false);
+
+            }
+            button.GetComponent<Image>().color = button.colors.disabledColor;
+        }
+        else
+        {
+            foreach (GameObject go in models)
+            {
+                var meshR = go.GetComponent<MeshRenderer>();
+                meshR.enabled = true;
+                   
+                /*
+                if (is3D)
+                {
+                    Destroy(go);
+
+                    manager.enabled = false;
+                    tracked = Instantiate(go); //important for changing models, imports model in 3d model
+
+                    go.transform.SetParent(Camera.main.transform);
+                    go.transform.localPosition = new Vector3(0, 0, 0.5f);
+                    go.SetActive(true);
+                    pitch = Mathf.Clamp(pitch, -90, 0);
+                    go.transform.localEulerAngles = new Vector3(0, yaw, 0);
+                    go.transform.Rotate(Camera.main.transform.right, pitch, Space.World);
+
+                    //go.SetActive(true);
+                }
+                else
+                {
+                    Destroy(go);
+                    //tracked.SetActive(false);
+                    tracked = Instantiate(go);
+                    go.transform.parent = null;
+                    go.transform.localPosition = new Vector3(0, 0, 0.5f);
+                    go.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
+                    pitch = Mathf.Clamp(pitch, -90, 0);
+                    go.transform.localEulerAngles = new Vector3(0, yaw, 0);
+                    go.transform.Rotate(Camera.main.transform.right, pitch, Space.World);
+                    manager.enabled = true;
+                    go.SetActive(true);
+                    //tracked.SetActive(true);
+
+                }
+                */
+
+                //go.SetActive(true);
+                //go.transform.SetParent(Camera.main.transform);
+            }
+            button.GetComponent<Image>().color = button.colors.normalColor;
         }
     }
 
