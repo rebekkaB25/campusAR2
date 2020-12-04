@@ -73,6 +73,8 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Text
     - UnityEngine.UI.Toggle
     - UnityEngine.UI.VerticalLayoutGroup
+    com.unity.multiplayer-hlapi.Runtime.dll:
+    - UnityEngine.Networking.NetworkCallbacks
   sceneClasses:
     Assets/Scenes/ARCaritas.unity:
     - Class: 1
@@ -488,7 +490,7 @@ ScriptsOnlyBuild:
     className: FingersScript
   - hash:
       serializedVersion: 2
-      Hash: 61f415e52701e0df80122655da34d095
+      Hash: 74fbdf6689c573ff1d194137ffb7f4ec
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CommentDraw

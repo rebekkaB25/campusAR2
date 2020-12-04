@@ -29,6 +29,8 @@ public class CommentDraw : MonoBehaviour
     public GameObject DislikeButton;
     public GameObject PopupPanel;
 
+    public GameObject menuPanel;
+
     public GameObject floors;
     public GameObject campus_plane;
 
@@ -257,10 +259,17 @@ public class CommentDraw : MonoBehaviour
 
                     int layerMask = ~(1 << 11);
                     //lp = Input.mousePosition;
+
+                    
+
+          
+
                     Ray ray = Camera.main.ScreenPointToRay(new Vector3(lp.x, lp.y, 1));
                     RaycastHit tempHit;
                     if (Physics.Raycast(ray, out tempHit, Mathf.Infinity, layerMask))
                     {
+                        //lineRenderer.SetWidth(0.001f, 0.001f);
+                        //lineRenderer.SetColors(Color.black, Color.black);  //ohne unterbrechungen
                         hitInfo = tempHit;
                         positions.Add(lineRenderer.transform.InverseTransformPoint(hitInfo.point));
                         lineRenderer.positionCount = positions.Count;
@@ -637,6 +646,8 @@ public class CommentDraw : MonoBehaviour
 
         chatbox.SetActive(true);
         PopupPanel.SetActive(false);
+        menuPanel.SetActive(false);  //try
+     
 
         
         
@@ -826,8 +837,20 @@ public class CommentDraw : MonoBehaviour
         }
     }
 
-//toggles for eg, og1, og2
-
+//toggles for campus, eg, og1, og2
+/*
+    public void ToggleCampus(Toggle toggleCamp) 
+    {
+        if (toggleCamp.isOn)
+        {
+            GameObject.FindGameObjectWithTag("campus").GetComponent<MeshRenderer>().enabled = true;
+        }
+        else
+        {
+            GameObject.FindGameObjectWithTag("campus").GetComponent<MeshRenderer>().enabled = false;
+        }
+    }
+*/
     public void ToggleEG(Toggle toggleEG)
     {
         if (toggleEG.isOn)
