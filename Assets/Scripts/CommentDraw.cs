@@ -303,7 +303,15 @@ public class CommentDraw : MonoBehaviour
 
             }
         }
-      
+
+        //activates campus if floors are disabled
+
+        if ((GameObject.FindGameObjectWithTag("eg").GetComponent<MeshRenderer>().enabled == false) &&
+            (GameObject.FindGameObjectWithTag("og1").GetComponent<MeshRenderer>().enabled == false) &&
+            (GameObject.FindGameObjectWithTag("og2").GetComponent<MeshRenderer>().enabled == false) )
+        {
+            GameObject.FindGameObjectWithTag("campus").GetComponent<MeshRenderer>().enabled = true;
+        }
 
     }
 
@@ -713,54 +721,9 @@ public class CommentDraw : MonoBehaviour
 
     }
 
-/*
-public void DisableModel(Toggle toggle1) //try to disable models, works in 3d
-    {
-       
-        if (is3D)
-        {
-            
-           // floors = Instantiate(manager.trackedImagePrefab);
-            toggle1 = toggle1.GetComponent<Toggle>();
-            //
-            if (toggle1.isOn)
-            {
-                tracked.SetActive(true);
-            }
-            else
-            {
-                tracked.SetActive(false);
-            }
-           //
-            if (toggle1.isOn)
-            {
-                
-                floors.transform.GetChild(0).gameObject.SetActive(true); //versuch, bei floors geht tracking bzw platzierung nicht, muss in switchar angepasst werden
-            }
-            else
-            {
-                floors.transform.GetChild(0).gameObject.SetActive(false);
-            }
-        }
-        else
-        {
-            //GameObject floors;
-            //floors = manager.trackedImagePrefab;
-            toggle1 = toggle1.GetComponent<Toggle>();
 
-            if (toggle1.isOn)
-            {
-                floors.transform.GetChild(0).gameObject.SetActive(true);
-            }
-            else
-            {
-                floors.transform.GetChild(0).gameObject.SetActive(false);
-            }
-        }
-            
-    }
 
-    */
+    
 
     public void SwitchAR3D()
     {
@@ -863,69 +826,51 @@ public void DisableModel(Toggle toggle1) //try to disable models, works in 3d
         }
     }
 
-    public void ToggleModel(Button button)
+//toggles for eg, og1, og2
+
+    public void ToggleEG(Toggle toggleEG)
     {
-        if (button.GetComponent<Image>().color == button.colors.normalColor)
+        if (toggleEG.isOn)
         {
-            models.AddRange(GameObject.FindGameObjectsWithTag("campus"));
-            foreach (GameObject go in models)
-            {
-
-                var meshR = go.GetComponent<MeshRenderer>();
-                meshR.enabled = false;
-               // go.SetActive(false);
-
-            }
-            button.GetComponent<Image>().color = button.colors.disabledColor;
+            GameObject.FindGameObjectWithTag("eg").GetComponent<MeshRenderer>().enabled = true;
+            GameObject.FindGameObjectWithTag("campus").GetComponent<MeshRenderer>().enabled = false;
         }
         else
         {
-            foreach (GameObject go in models)
-            {
-                var meshR = go.GetComponent<MeshRenderer>();
-                meshR.enabled = true;
-                   
-                /*
-                if (is3D)
-                {
-                    Destroy(go);
+            GameObject.FindGameObjectWithTag("eg").GetComponent<MeshRenderer>().enabled = false;
+        }
+        
+    }
 
-                    manager.enabled = false;
-                    tracked = Instantiate(go); //important for changing models, imports model in 3d model
+    public void ToggleOG1(Toggle toggleOG1)
+    {
+        if (toggleOG1.isOn)
+        {
+            GameObject.FindGameObjectWithTag("og1").GetComponent<MeshRenderer>().enabled = true;
+            GameObject.FindGameObjectWithTag("campus").GetComponent<MeshRenderer>().enabled = false;
+        }
+        else
+        {
+            GameObject.FindGameObjectWithTag("og1").GetComponent<MeshRenderer>().enabled = false;
 
-                    go.transform.SetParent(Camera.main.transform);
-                    go.transform.localPosition = new Vector3(0, 0, 0.5f);
-                    go.SetActive(true);
-                    pitch = Mathf.Clamp(pitch, -90, 0);
-                    go.transform.localEulerAngles = new Vector3(0, yaw, 0);
-                    go.transform.Rotate(Camera.main.transform.right, pitch, Space.World);
-
-                    //go.SetActive(true);
-                }
-                else
-                {
-                    Destroy(go);
-                    //tracked.SetActive(false);
-                    tracked = Instantiate(go);
-                    go.transform.parent = null;
-                    go.transform.localPosition = new Vector3(0, 0, 0.5f);
-                    go.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
-                    pitch = Mathf.Clamp(pitch, -90, 0);
-                    go.transform.localEulerAngles = new Vector3(0, yaw, 0);
-                    go.transform.Rotate(Camera.main.transform.right, pitch, Space.World);
-                    manager.enabled = true;
-                    go.SetActive(true);
-                    //tracked.SetActive(true);
-
-                }
-                */
-
-                //go.SetActive(true);
-                //go.transform.SetParent(Camera.main.transform);
-            }
-            button.GetComponent<Image>().color = button.colors.normalColor;
         }
     }
+
+    public void ToggleOG2(Toggle toggleOG2)
+    {
+        if (toggleOG2.isOn)
+        {
+            GameObject.FindGameObjectWithTag("og2").GetComponent<MeshRenderer>().enabled = true;
+            GameObject.FindGameObjectWithTag("campus").GetComponent<MeshRenderer>().enabled = false;
+        }
+        else
+        {
+            GameObject.FindGameObjectWithTag("og2").GetComponent<MeshRenderer>().enabled = false;
+        }
+    }
+
+
+    //toggles for infos, drawings, comments
 
     public void ToggleInfos(Button button)
     {

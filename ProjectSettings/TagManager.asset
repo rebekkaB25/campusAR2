@@ -9,6 +9,9 @@ TagManager:
   - Marker
   - Water
   - campus
+  - eg
+  - og2
+  - og1
   layers:
   - Default
   - TransparentFX
