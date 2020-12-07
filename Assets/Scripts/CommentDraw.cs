@@ -311,6 +311,7 @@ public class CommentDraw : MonoBehaviour
                 }
 
             }
+     
         }
 
         //activates campus if floors are disabled
@@ -857,6 +858,7 @@ public class CommentDraw : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("eg").GetComponent<MeshRenderer>().enabled = true;
             GameObject.FindGameObjectWithTag("campus").GetComponent<MeshRenderer>().enabled = false;
+            
         }
         else
         {
