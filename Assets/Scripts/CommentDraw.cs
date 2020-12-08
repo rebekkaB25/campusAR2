@@ -221,6 +221,19 @@ public class CommentDraw : MonoBehaviour
                     if (Physics.Raycast(ray, out tempHit, Mathf.Infinity, layerMask))
                     {
                         hitInfo = tempHit;
+
+                        /*
+                        if (markerPanel.activeSelf && markerPanelText == DrawPlaceString3D)
+                            {
+                                marker.transform.Find("drawingModel").GetComponent<MeshRenderer>().enabled = true;
+                                marker.transform.Find("commentModel").GetComponent<MeshRenderer>().enabled = false;
+                            }
+                        else
+                        {
+                            marker.transform.Find("drawingModel").GetComponent<MeshRenderer>().enabled = false;
+                            marker.transform.Find("commentModel").GetComponent<MeshRenderer>().enabled = true;
+                        }
+                        */
                         marker.transform.position = hitInfo.point;
                         Vector3 tangent = Vector3.forward;
                         Vector3 normal = hitInfo.normal;
@@ -232,6 +245,7 @@ public class CommentDraw : MonoBehaviour
                             marker.transform.position = hitInfo.transform.position;
                         }
 
+                        
                     }
 
                 }
@@ -250,6 +264,21 @@ public class CommentDraw : MonoBehaviour
             if (markerPanel.activeSelf)
             {
                 string markerPanelText = markerPanel.GetComponentInChildren<Text>().text;
+
+
+                //try here
+                if (markerPanelText == DrawPlaceString || markerPanelText == DrawPlaceString3D)
+                {
+                    marker.transform.Find("drawingModel").GetComponent<MeshRenderer>().enabled = true;
+                    marker.transform.Find("commentModel").GetComponent<MeshRenderer>().enabled = false;
+                }
+                else
+                {
+                    marker.transform.Find("drawingModel").GetComponent<MeshRenderer>().enabled = false;
+                    marker.transform.Find("commentModel").GetComponent<MeshRenderer>().enabled = true;
+                }
+
+
                 if (markerPanelText == DrawString)//|| markerPanelText == ScreenshotDrawString)          //zeichenfunktion
                 {
                     //show screenshot
@@ -482,6 +511,7 @@ public class CommentDraw : MonoBehaviour
                 }
                 else
                 {
+                    
                     if (marker.transform.parent)
                         commentMarker = Instantiate(marker, marker.transform.parent);
                     else
@@ -502,6 +532,8 @@ public class CommentDraw : MonoBehaviour
                 {
                     drawTouchReleased = false;
                     manager.enabled = false;
+
+                    
 
                     tracked.transform.SetParent(transform);
                     drawOrigin = tracked.transform.localPosition;
@@ -661,7 +693,7 @@ public class CommentDraw : MonoBehaviour
         if (line)
             line.enabled = true;
     }
-
+    /*
     public void Like ()
     {
         like++;
@@ -671,6 +703,7 @@ public class CommentDraw : MonoBehaviour
     {
         dislike ++ ;
     }
+    */
 
     public void TaskOnClick() //chat
     {
@@ -684,13 +717,14 @@ public class CommentDraw : MonoBehaviour
 
             message = inputField.text;
 
+            /*
             Button btn = LikeButton.GetComponent<Button>();
             btn.onClick.AddListener(Like);
             Button btn2 = DislikeButton.GetComponent<Button>();
             btn2.onClick.AddListener(Dislike);
 
+
             
-            /*
              chatMarker = Instantiate(messageMarker, messageMarker.transform.parent);
 
             Messages.nr = counter;
@@ -712,21 +746,23 @@ public class CommentDraw : MonoBehaviour
             {
                 chatText.text += "[" + currentTime + "]  <link=linktest> like/dislike </link>Likes: " + like + Environment.NewLine + message + Environment.NewLine + Environment.NewLine;
             }
-            */
+            
             if (like == 0 && dislike == 0)
             {
-                chatText.text += "[ nr "+counter + currentTime + "] <link=linktest> like/dislike </link>" + Environment.NewLine + message + Environment.NewLine + Environment.NewLine;
+                chatText.text += "[nr "+counter + currentTime + "] <link=linktest> like/dislike </link>" + Environment.NewLine + message + Environment.NewLine + Environment.NewLine;
             }
             else
             {
                 chatText.text += "[nr "+counter + currentTime + "] <link=linktest> like/dislike </link> Likes: " + like + "  Dislikes: " + dislike + Environment.NewLine + message + Environment.NewLine + Environment.NewLine;
             }
+            */
 
+            chatText.text += "[" + currentTime + "]: "+ Environment.NewLine + message + Environment.NewLine + Environment.NewLine;
 
             message = null;
             inputField.text = string.Empty;
 
-            counter++;
+            //counter++;
 
             
         }
@@ -970,6 +1006,7 @@ public class CommentDraw : MonoBehaviour
             markerPanel.GetComponentInChildren<Text>().text = DrawPlaceString;
         marker.SetActive(true);
         marker.transform.Find("marker").gameObject.SetActive(true);
+      
     }
 
     public void AddModel(string name)
@@ -1010,7 +1047,7 @@ public class CommentDraw : MonoBehaviour
         spawned.transform.localRotation = Quaternion.identity;
         spawned.transform.localScale = Vector3.one;
         marker.transform.Find("marker").gameObject.SetActive(false);
-        marker.transform.Find("commentModel").gameObject.SetActive(false);
+        marker.transform.Find("commentModel").gameObject.SetActive(false); //add drawing marker here
         marker.SetActive(true);
         if (is3D)
             markerPanel.GetComponentInChildren<Text>().text = ModelPlaceString3D;
