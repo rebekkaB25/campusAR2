@@ -838,32 +838,19 @@ public class CommentDraw : MonoBehaviour
         }
     }
 
-//toggles for campus, eg, og1, og2
-/*
-    public void ToggleCampus(Toggle toggleCamp) 
-    {
-        if (toggleCamp.isOn)
-        {
-            GameObject.FindGameObjectWithTag("campus").GetComponent<MeshRenderer>().enabled = true;
-        }
-        else
-        {
-            GameObject.FindGameObjectWithTag("campus").GetComponent<MeshRenderer>().enabled = false;
-        }
-    }
-*/
     public void ToggleEG(Toggle toggleEG)
     {
         if (toggleEG.isOn)
         {
             GameObject.FindGameObjectWithTag("eg").GetComponent<MeshRenderer>().enabled = true;
             GameObject.FindGameObjectWithTag("campus").GetComponent<MeshRenderer>().enabled = false;
-            //GameObject.FindGameObjectWithTag("campus").GetComponent<MeshCollider>().enabled = false;
+           // GameObject.FindGameObjectWithTag("campus").GetComponent<MeshCollider>().enabled = false;
 
         }
         else
         {
             GameObject.FindGameObjectWithTag("eg").GetComponent<MeshRenderer>().enabled = false;
+           // GameObject.FindGameObjectWithTag("eg").GetComponent<MeshCollider>().enabled = false;
         }
         
     }
@@ -874,11 +861,12 @@ public class CommentDraw : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("og1").GetComponent<MeshRenderer>().enabled = true;
             GameObject.FindGameObjectWithTag("campus").GetComponent<MeshRenderer>().enabled = false;
-           // GameObject.FindGameObjectWithTag("campus").GetComponent<MeshCollider>().enabled = false;
+            //GameObject.FindGameObjectWithTag("campus").GetComponent<MeshCollider>().enabled = false;
         }
         else
         {
             GameObject.FindGameObjectWithTag("og1").GetComponent<MeshRenderer>().enabled = false;
+           // GameObject.FindGameObjectWithTag("og1").GetComponent<MeshCollider>().enabled = false;
 
         }
     }
@@ -889,11 +877,12 @@ public class CommentDraw : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("og2").GetComponent<MeshRenderer>().enabled = true;
             GameObject.FindGameObjectWithTag("campus").GetComponent<MeshRenderer>().enabled = false;
-           // GameObject.FindGameObjectWithTag("campus").GetComponent<MeshCollider>().enabled = false;
+           //GameObject.FindGameObjectWithTag("campus").GetComponent<MeshCollider>().enabled = false;
         }
         else
         {
             GameObject.FindGameObjectWithTag("og2").GetComponent<MeshRenderer>().enabled = false;
+           // GameObject.FindGameObjectWithTag("og2").GetComponent<MeshCollider>().enabled = false;
         }
     }
 
@@ -1021,6 +1010,7 @@ public class CommentDraw : MonoBehaviour
         spawned.transform.localRotation = Quaternion.identity;
         spawned.transform.localScale = Vector3.one;
         marker.transform.Find("marker").gameObject.SetActive(false);
+        marker.transform.Find("commentModel").gameObject.SetActive(false);
         marker.SetActive(true);
         if (is3D)
             markerPanel.GetComponentInChildren<Text>().text = ModelPlaceString3D;
