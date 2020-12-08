@@ -858,7 +858,8 @@ public class CommentDraw : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("eg").GetComponent<MeshRenderer>().enabled = true;
             GameObject.FindGameObjectWithTag("campus").GetComponent<MeshRenderer>().enabled = false;
-            
+            //GameObject.FindGameObjectWithTag("campus").GetComponent<MeshCollider>().enabled = false;
+
         }
         else
         {
@@ -873,6 +874,7 @@ public class CommentDraw : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("og1").GetComponent<MeshRenderer>().enabled = true;
             GameObject.FindGameObjectWithTag("campus").GetComponent<MeshRenderer>().enabled = false;
+           // GameObject.FindGameObjectWithTag("campus").GetComponent<MeshCollider>().enabled = false;
         }
         else
         {
@@ -887,6 +889,7 @@ public class CommentDraw : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("og2").GetComponent<MeshRenderer>().enabled = true;
             GameObject.FindGameObjectWithTag("campus").GetComponent<MeshRenderer>().enabled = false;
+           // GameObject.FindGameObjectWithTag("campus").GetComponent<MeshCollider>().enabled = false;
         }
         else
         {
