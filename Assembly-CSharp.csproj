@@ -138,16 +138,19 @@
     <Compile Include="Assets\Scripts\ARKitBlendShapeVisualizer.cs" />
     <Compile Include="Assets\Scripts\ARWorldMapController.cs" />
     <Compile Include="Assets\Scripts\AdvancedBillboard.cs" />
+    <Compile Include="Assets\Scripts\AdvancedBillboardAR.cs" />
     <Compile Include="Assets\Scripts\AlignToCamera.cs" />
     <Compile Include="Assets\Scripts\AndroidManager.cs" />
     <Compile Include="Assets\Scripts\AnimationEventRelayer.cs" />
     <Compile Include="Assets\Scripts\AutomationSystemsDisplay.cs" />
+    <Compile Include="Assets\Scripts\BillboardLine.cs" />
     <Compile Include="Assets\Scripts\BoneController.cs" />
     <Compile Include="Assets\Scripts\CameraConfigController.cs" />
     <Compile Include="Assets\Scripts\CameraOrbitZoom.cs" />
     <Compile Include="Assets\Scripts\ClickARButton.cs" />
     <Compile Include="Assets\Scripts\ClickExample.cs" />
     <Compile Include="Assets\Scripts\ClickableText.cs" />
+    <Compile Include="Assets\Scripts\Comment.cs" />
     <Compile Include="Assets\Scripts\CommentDraw.cs" />
     <Compile Include="Assets\Scripts\DisableVerticalPlanes.cs" />
     <Compile Include="Assets\Scripts\EndlessRotation.cs" />
@@ -158,6 +161,7 @@
     <Compile Include="Assets\Scripts\FastObjImporter.cs" />
     <Compile Include="Assets\Scripts\FixationPoint2DVisualizer.cs" />
     <Compile Include="Assets\Scripts\FixationPoint3DVisualizer.cs" />
+    <Compile Include="Assets\Scripts\FloorToggles.cs" />
     <Compile Include="Assets\Scripts\HumanBodyTracker.cs" />
     <Compile Include="Assets\Scripts\IMG2Sprite.cs" />
     <Compile Include="Assets\Scripts\KeepScale.cs" />
@@ -166,6 +170,7 @@
     <Compile Include="Assets\Scripts\Logger.cs" />
     <Compile Include="Assets\Scripts\MELTLogoAnimationsController.cs" />
     <Compile Include="Assets\Scripts\MakeAppearOnPlane.cs" />
+    <Compile Include="Assets\Scripts\Messages.cs" />
     <Compile Include="Assets\Scripts\Paintable.cs" />
     <Compile Include="Assets\Scripts\PlaceMultipleObjectsOnPlane.cs" />
     <Compile Include="Assets\Scripts\PlaceOnPlane.cs" />
