@@ -66,6 +66,10 @@ namespace Scripts
 
                 if (_billboardLine)
                     _billboardLine.SetAlpha(alpha);
+
+               
+
+
             }
         }
     }

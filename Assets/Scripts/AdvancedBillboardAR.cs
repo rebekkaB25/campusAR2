@@ -67,7 +67,6 @@ namespace Scripts
                 m_TextComponent.alpha = alpha;
 
             if (_billboardLine)
-                //_billboardLine.transform.SetParent(camera.transform); //try to stabilise
                 _billboardLine.SetAlpha(alpha);
         }
     }

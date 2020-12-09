@@ -47,7 +47,7 @@ public class CommentDraw : MonoBehaviour
     public ARTrackedImageManager manager;
     Vector3 startPos;
 
-    List<GameObject> infos, comments, drawings, models;
+    List<GameObject> infos, comments, drawings;
 
     string Comment3DString = "Legen Sie die Position für den Kommentar fest, " + Environment.NewLine + "indem Sie auf die entsprechende Stelle tippen.";
     string CommentARString = "Legen Sie die Position für den Kommentar fest," + Environment.NewLine +
@@ -109,7 +109,6 @@ public class CommentDraw : MonoBehaviour
         comments = new List<GameObject>();
         drawings = new List<GameObject>();
 
-        models = new List<GameObject>();
 
         positions = new List<Vector3>();
         drawTouchReleased = false;
@@ -297,16 +296,14 @@ public class CommentDraw : MonoBehaviour
                     RaycastHit tempHit;
                     if (Physics.Raycast(ray, out tempHit, Mathf.Infinity, layerMask))
                     {
-                        //lineRenderer.SetWidth(0.001f, 0.001f);
-                        //lineRenderer.SetColors(Color.black, Color.black);  //ohne unterbrechungen
+                        lineRenderer.SetWidth(0.01f, 0.01f);
+                        lineRenderer.SetColors(Color.black, Color.black); 
                         hitInfo = tempHit;
                         positions.Add(lineRenderer.transform.InverseTransformPoint(hitInfo.point));
                         lineRenderer.positionCount = positions.Count;
                         lineRenderer.SetPositions(positions.ToArray());
                     }
                 }
-
-
             }
             /*  else
               {
@@ -511,7 +508,7 @@ public class CommentDraw : MonoBehaviour
                 }
                 else
                 {
-                    
+                   
                     if (marker.transform.parent)
                         commentMarker = Instantiate(marker, marker.transform.parent);
                     else
@@ -665,6 +662,7 @@ public class CommentDraw : MonoBehaviour
             markerPanel.GetComponentInChildren<Text>().text = CommentARString;
         marker.SetActive(true);
         marker.transform.Find("marker").gameObject.SetActive(true);
+        marker.transform.Find("commentModel").gameObject.SetActive(true);
     }
 
     public static void EditComment(Comment comment)
@@ -828,8 +826,6 @@ public class CommentDraw : MonoBehaviour
                 GetComponent<ARCameraBackground>().enabled = false;
 
 
-                //tracked.transform.SetParent(null); //camera is not parent, flexible camera in 3d mode
-
                 is3D = true;
             }
 
@@ -853,8 +849,15 @@ public class CommentDraw : MonoBehaviour
                 tracked.transform.localEulerAngles = new Vector3(0, yaw, 0);
                 tracked.transform.Rotate(Camera.main.transform.right, pitch, Space.World);
 
+                
+               /* //trying to stabilise lines
+                lines.AddRange(GameObject.FindGameObjectsWithTag("billboard"));
+                foreach (GameObject go in lines)
+                {
+                    go.GetComponent<LineRenderer>().transform.SetParent(tracked.transform);
 
-
+                }
+               */
 
                 if (markerPanel.GetComponentInChildren<Text>().text == CommentARString)
                     markerPanel.GetComponentInChildren<Text>().text = Comment3DString;
@@ -943,6 +946,7 @@ public class CommentDraw : MonoBehaviour
             {
                 go.SetActive(true);
                 go.transform.SetParent(Camera.main.transform);
+                
             }
             button.GetComponent<Image>().color = button.colors.normalColor;
         }
@@ -1030,7 +1034,7 @@ public class CommentDraw : MonoBehaviour
         spawned.name = "ModelComment";
         spawned.layer = 11;
         if (spawned.GetComponent<MeshRenderer>() && !isPrefab)
-            spawned.GetComponent<MeshRenderer>().material.color = Color.green;
+            spawned.GetComponent<MeshRenderer>().material.color = Color.black;
         spawned.transform.SetParent(marker.transform);
         if (spawned.GetComponentInChildren<MeshFilter>())
         {
@@ -1047,13 +1051,15 @@ public class CommentDraw : MonoBehaviour
         spawned.transform.localRotation = Quaternion.identity;
         spawned.transform.localScale = Vector3.one;
         marker.transform.Find("marker").gameObject.SetActive(false);
-        marker.transform.Find("commentModel").gameObject.SetActive(false); //add drawing marker here
+        marker.transform.Find("commentModel").gameObject.SetActive(false); //deactivates comment marker when objects is spawned
         marker.SetActive(true);
         if (is3D)
             markerPanel.GetComponentInChildren<Text>().text = ModelPlaceString3D;
         else
             markerPanel.GetComponentInChildren<Text>().text = ModelPlaceString;
         markerPanel.SetActive(true);
+
+        
     }
 
 
