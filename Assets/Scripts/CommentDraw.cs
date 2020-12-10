@@ -47,7 +47,7 @@ public class CommentDraw : MonoBehaviour
     public ARTrackedImageManager manager;
     Vector3 startPos;
 
-    List<GameObject> infos, comments, drawings;
+    List<GameObject> infos, comments, drawings, models;
 
     string Comment3DString = "Legen Sie die Position für den Kommentar fest, " + Environment.NewLine + "indem Sie auf die entsprechende Stelle tippen.";
     string CommentARString = "Legen Sie die Position für den Kommentar fest," + Environment.NewLine +
@@ -108,7 +108,7 @@ public class CommentDraw : MonoBehaviour
         infos = new List<GameObject>();
         comments = new List<GameObject>();
         drawings = new List<GameObject>();
-
+        models = new List<GameObject>();
 
         positions = new List<Vector3>();
         drawTouchReleased = false;
@@ -959,7 +959,7 @@ public class CommentDraw : MonoBehaviour
             comments.AddRange(GameObject.FindGameObjectsWithTag("Marker"));
             foreach (GameObject go in comments)
             {
-                if (go.GetComponentInChildren<LineRenderer>() is null)
+                if (go.GetComponentInChildren<LineRenderer>() is null && go.GetComponentInChildren<ModelMarker>() is null)
                 {
                     go.SetActive(false);
                 }
@@ -970,7 +970,10 @@ public class CommentDraw : MonoBehaviour
         {
             foreach (GameObject go in comments)
             {
-                go.SetActive(true);
+                if (go.GetComponentInChildren<LineRenderer>() is null && go.GetComponentInChildren<ModelMarker>() is null)
+                {
+                    go.SetActive(true);
+                }
             }
             button.GetComponent<Image>().color = button.colors.normalColor;
         }
@@ -984,7 +987,7 @@ public class CommentDraw : MonoBehaviour
             drawings.AddRange(GameObject.FindGameObjectsWithTag("Marker"));
             foreach (GameObject go in drawings)
             {
-                if (go.GetComponentInChildren<LineRenderer>())
+                if (go.GetComponentInChildren<LineRenderer>() && (go.GetComponentInChildren<ModelMarker>() is null))
                 //only markers with lineRenderer
                 {
                     go.SetActive(false);
@@ -996,11 +999,46 @@ public class CommentDraw : MonoBehaviour
         {
             foreach (GameObject go in drawings)
             {
-                go.SetActive(true);
+                if (go.GetComponentInChildren<LineRenderer>() && (go.GetComponentInChildren<ModelMarker>() is null))
+                //only markers with lineRenderer
+                {
+                    go.SetActive(true);
+                }
             }
             button.GetComponent<Image>().color = button.colors.normalColor;
         }
     }
+
+    public void ToggleModels(Button button)
+    {
+        if (button.GetComponent<Image>().color == button.colors.normalColor)
+        {
+
+            models.AddRange(GameObject.FindGameObjectsWithTag("Marker"));
+            foreach (GameObject go in models)
+            {
+                if (go.GetComponentInChildren<ModelMarker>() && (go.GetComponentInChildren<LineRenderer>() is null) )
+                //only markers with skriptmarker
+                {
+                    go.SetActive(false);
+                }
+            }
+            button.GetComponent<Image>().color = button.colors.disabledColor;
+        }
+        else
+        {
+            foreach (GameObject go in models) 
+            {
+                if (go.GetComponentInChildren<ModelMarker>() && (go.GetComponentInChildren<LineRenderer>() is null))
+                //only markers with skriptmarker
+                {
+                    go.SetActive(true);
+                }
+            }
+            button.GetComponent<Image>().color = button.colors.normalColor;
+        }
+    }
+
 
     public void Draw()
     {
@@ -1033,6 +1071,7 @@ public class CommentDraw : MonoBehaviour
             spawned = go;
         spawned.name = "ModelComment";
         spawned.layer = 11;
+        
         if (spawned.GetComponent<MeshRenderer>() && !isPrefab)
             spawned.GetComponent<MeshRenderer>().material.color = Color.black;
         spawned.transform.SetParent(marker.transform);
@@ -1050,6 +1089,12 @@ public class CommentDraw : MonoBehaviour
             spawned.transform.localPosition = Vector3.zero;
         spawned.transform.localRotation = Quaternion.identity;
         spawned.transform.localScale = Vector3.one;
+
+        //models.Add(marker);
+
+        var type = Type.GetType("ModelMarker");
+        marker.AddComponent(type);
+
         marker.transform.Find("marker").gameObject.SetActive(false);
         marker.transform.Find("commentModel").gameObject.SetActive(false); //deactivates comment marker when objects is spawned
         marker.SetActive(true);

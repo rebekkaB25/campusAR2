@@ -171,6 +171,7 @@
     <Compile Include="Assets\Scripts\MELTLogoAnimationsController.cs" />
     <Compile Include="Assets\Scripts\MakeAppearOnPlane.cs" />
     <Compile Include="Assets\Scripts\Messages.cs" />
+    <Compile Include="Assets\Scripts\ModelMarker.cs" />
     <Compile Include="Assets\Scripts\Paintable.cs" />
     <Compile Include="Assets\Scripts\PlaceMultipleObjectsOnPlane.cs" />
     <Compile Include="Assets\Scripts\PlaceOnPlane.cs" />
