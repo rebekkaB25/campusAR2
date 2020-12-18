@@ -19,9 +19,9 @@ MonoBehaviour:
       m_GuidLow: 5690005388014227030
       m_GuidHigh: 14674507302001010614
     m_SerializedTextureGuid:
-      m_GuidLow: 6113208616485519064
-      m_GuidHigh: 3533640297518703003
-    m_Size: {x: 0.3, y: 0.3153558}
+      m_GuidLow: 3771751008333931870
+      m_GuidHigh: 11052983987875969690
+    m_Size: {x: 0.3, y: 0.3}
     m_SpecifySize: 1
     m_Name: caritas
     m_Texture: {fileID: 0}
