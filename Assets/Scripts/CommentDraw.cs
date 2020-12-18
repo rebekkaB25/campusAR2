@@ -777,6 +777,8 @@ public class CommentDraw : MonoBehaviour
         {
             if (is3D) //goes in AR
             {
+                tracked.transform.Find("Image 2").GetComponent<MeshRenderer>().enabled = false;
+
                 if (markerPanel.GetComponentInChildren<Text>().text != DrawString || !markerPanel.activeSelf)
                 {
                     tracked.SetActive(false);
@@ -806,7 +808,8 @@ public class CommentDraw : MonoBehaviour
             }
             else //goes in 3D
             {
-               
+                tracked.transform.Find("Image 2").GetComponent<MeshRenderer>().enabled = true;
+
                 manager.enabled = false;
                 tracked.transform.SetParent(Camera.main.transform);
                 tracked.transform.localPosition = new Vector3(0, 0, 0.5f);
@@ -839,9 +842,12 @@ public class CommentDraw : MonoBehaviour
             else //Ar switches to 3D for the first time, initiating tracked as the plane+panels
             {
                 
+
                 manager.enabled = false;
                 tracked = Instantiate(manager.trackedImagePrefab); //important for changing models, imports model in 3d model
-              
+
+                tracked.transform.Find("Image 2").GetComponent<MeshRenderer>().enabled = true;
+
                 tracked.transform.SetParent(Camera.main.transform);
                 tracked.transform.localPosition = new Vector3(0, 0, 0.5f);
                 tracked.SetActive(true);
