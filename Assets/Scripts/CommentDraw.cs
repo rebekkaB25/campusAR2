@@ -945,7 +945,7 @@ public class CommentDraw : MonoBehaviour
             foreach (GameObject go in infos)
             {
                 go.SetActive(true);
-                go.transform.SetParent(Camera.main.transform);
+                //go.transform.SetParent(Camera.main.transform);
                 
             }
             button.GetComponent<Image>().color = button.colors.normalColor;
