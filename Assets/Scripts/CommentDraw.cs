@@ -19,20 +19,10 @@ public class CommentDraw : MonoBehaviour
     public GameObject ScreenshotPreview;
 
     public GameObject chatbox;
-    //public Dictionary<DateTime, string, int, int> Messages = new Dictionary<DateTime, string, int, int>();//saves Chat-messages WIP
-    public GameObject photoButton;
 
     GameObject commentMarker;
-    GameObject chatMarker;
-    GameObject messageMarker;
-    public GameObject LikeButton;
-    public GameObject DislikeButton;
-    public GameObject PopupPanel;
-
+    
     public GameObject menuPanel;
-
-    public GameObject floors;
-    public GameObject campus_plane;
 
     static CommentDraw inst;
     GameObject tracked;
@@ -63,23 +53,13 @@ public class CommentDraw : MonoBehaviour
 
     string ModelPlaceString3D = "Legen Sie die Position für das Objekt fest, " + Environment.NewLine + "indem Sie auf die entsprechende Stelle tippen.";
 
-    //screenshot
-
-    string ScreenshotWindowString = "Wählen Sie den Ausschnitt, " + Environment.NewLine + "auf den gezeichnet werden soll.";
-
-    string ScreenshotDrawString = "Zeichnen Sie mit dem Finger auf das Bild";
-
     //chat
-    [SerializeField] private TMP_Text chatText = null; //alle Nachrichten
-    [SerializeField] private InputField inputField = null; //Entwurf
+    [SerializeField] private TMP_Text chatText = null; 
+    [SerializeField] private InputField inputField = null; 
     [SerializeField] private GameObject canvas = null;
 
-    
-    float like;
-    float dislike;
     private string message;
     public Button commentChatButton;
-
 
     LineRenderer lineRenderer;
     List<Vector3> positions;
@@ -101,8 +81,6 @@ public class CommentDraw : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-
         inst = this;
         is3D = false;
         infos = new List<GameObject>();
@@ -114,16 +92,13 @@ public class CommentDraw : MonoBehaviour
         drawTouchReleased = false;
         pitch = -45;
         yaw = 45;
-        like = 0;
-        dislike = 0;
 
-        //chat
         commentChatButton.onClick.AddListener(TaskOnClick);
 
         freezeBackground = true;
 
         GameObject button = pickModelPanel.transform.Find("CubeButton").gameObject;
-        foreach (PrimitiveType primType in (PrimitiveType[])Enum.GetValues(typeof(PrimitiveType))) //dynamische erzeugung des modell panels
+        foreach (PrimitiveType primType in (PrimitiveType[])Enum.GetValues(typeof(PrimitiveType)))
         {
             GameObject spawned = Instantiate(button);
             spawned.transform.SetParent(pickModelPanel.transform);
@@ -147,12 +122,11 @@ public class CommentDraw : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (tracked)
         {
             if (startWith3D) //is true after switching to 3D mode
             {
-                foreach (GameObject go in GameObject.FindGameObjectsWithTag("Tracked")) //finds tracked objects and links them to 3D-model
+                foreach (GameObject go in GameObject.FindGameObjectsWithTag("Tracked")) 
                 {
                     if (go != tracked)
                     {
@@ -173,11 +147,10 @@ public class CommentDraw : MonoBehaviour
                     }
                 }
             }
-            marker.transform.parent = tracked.transform; //links markers to model in 3d mode
+            marker.transform.parent = tracked.transform; 
         }
-        else //in ar mode, tracked are all the tracked objects but the 3d model
+        else 
            tracked = GameObject.FindGameObjectWithTag("Tracked");
-
 
 
 
@@ -213,7 +186,6 @@ public class CommentDraw : MonoBehaviour
                 string markerPanelText = markerPanel.GetComponentInChildren<Text>().text;
                 if (markerPanel.activeSelf && (markerPanelText == Comment3DString || markerPanelText == DrawPlaceString3D || markerPanelText == ModelPlaceString3D))
                 {
-
                     int layerMask = ~(1 << 11);
                     Ray ray = Camera.main.ScreenPointToRay(new Vector3(lp.x, lp.y, 1));
                     RaycastHit tempHit;
@@ -221,18 +193,6 @@ public class CommentDraw : MonoBehaviour
                     {
                         hitInfo = tempHit;
 
-                        /*
-                        if (markerPanel.activeSelf && markerPanelText == DrawPlaceString3D)
-                            {
-                                marker.transform.Find("drawingModel").GetComponent<MeshRenderer>().enabled = true;
-                                marker.transform.Find("commentModel").GetComponent<MeshRenderer>().enabled = false;
-                            }
-                        else
-                        {
-                            marker.transform.Find("drawingModel").GetComponent<MeshRenderer>().enabled = false;
-                            marker.transform.Find("commentModel").GetComponent<MeshRenderer>().enabled = true;
-                        }
-                        */
                         marker.transform.position = hitInfo.point;
                         Vector3 tangent = Vector3.forward;
                         Vector3 normal = hitInfo.normal;
@@ -243,8 +203,6 @@ public class CommentDraw : MonoBehaviour
                         {
                             marker.transform.position = hitInfo.transform.position;
                         }
-
-                        
                     }
 
                 }
@@ -256,16 +214,12 @@ public class CommentDraw : MonoBehaviour
                     tracked.transform.localEulerAngles = new Vector3(0, yaw, 0);
                     tracked.transform.Rotate(Camera.main.transform.right, pitch, Space.World);
                 }
-
-
             }
 
             if (markerPanel.activeSelf)
             {
                 string markerPanelText = markerPanel.GetComponentInChildren<Text>().text;
 
-
-                //try here
                 if (markerPanelText == DrawPlaceString || markerPanelText == DrawPlaceString3D)
                 {
                     marker.transform.Find("drawingModel").GetComponent<MeshRenderer>().enabled = true;
@@ -278,20 +232,10 @@ public class CommentDraw : MonoBehaviour
                 }
 
 
-                if (markerPanelText == DrawString)//|| markerPanelText == ScreenshotDrawString)          //zeichenfunktion
+                if (markerPanelText == DrawString)  //drawing function
                 {
-                    //show screenshot
-                    //ScreenshotPreview.SetActive(true);
-
-                    //int layerMask2 = (12);          //soll auf anderem layer zeichnen, mit layerMask sollte es noch funktionieren
-
                     int layerMask = ~(1 << 11);
-                    //lp = Input.mousePosition;
-
                     
-
-          
-
                     Ray ray = Camera.main.ScreenPointToRay(new Vector3(lp.x, lp.y, 1));
                     RaycastHit tempHit;
                     if (Physics.Raycast(ray, out tempHit, Mathf.Infinity, layerMask))
@@ -305,12 +249,7 @@ public class CommentDraw : MonoBehaviour
                     }
                 }
             }
-            /*  else
-              {
-                  ScreenshotPreview.SetActive(false);
-              }
-            */
-
+           
             if (touch.phase == TouchPhase.Ended)
             {
                 touchStartedOnUI = false;
@@ -372,126 +311,15 @@ public class CommentDraw : MonoBehaviour
 
         return false;
     }
-    //meine Version von place, crasht momentan
 
-    /*
-    public void Place()
-    {
-        if (markerPanel.GetComponentInChildren<Text>().text == DrawString) //Zeichnen Sie aufs Modell
-        {
-            markerPanel.SetActive(false);
-            //ScreenshotPreview.SetActive(false);
-            field.transform.parent.gameObject.SetActive(true);
-            field.Select();
-        }
-
-        if (markerPanel.GetComponentInChildren<Text>().text == ScreenshotWindowString)
-        {
-            freezeBackground = true;
-            markerPanel.GetComponentInChildren<Text>().text = ScreenshotDrawString;
-
-        }
-
-        if (markerPanel.GetComponentInChildren<Text>().text == ScreenshotDrawString)
-        {
-            if (freezeBackground)
-            {
-                Screenshot.TakeScreenshot_Static(Screen.width, Screen.height);
-                IMG2Sprite.GetPhoto_static();
-
-                freezeBackground = false; 
-            }
-            ScreenshotPreview.SetActive(true);
-
-            //zeichenfunktion
-            //funktion, auf das bild zu zeichnen und die zeichnung zu speichern
-
-            //ScreenshotPreview.SetActive(true);
-
-            field.transform.parent.gameObject.SetActive(true);
-            field.Select();
-
-            markerPanel.SetActive(false);
-            //field.transform.parent.gameObject.SetActive(true); //opens commentPanel
-            //field.Select();
-            //problem with comment panel button
-    
-
-        }
-
-        else
-        {
-            if (hitInfo.collider)
-            {
-                if (hitInfo.collider.GetComponent<Comment>()) //if collider/marker has a comment, show it
-                {
-                    commentMarker = hitInfo.collider.gameObject;
-                    field.text = commentMarker.GetComponent<Comment>().text;
-                }
-                else
-                {
-                    if (marker.transform.parent)    
-                        commentMarker = Instantiate(marker, marker.transform.parent); 
-                    else
-                    {
-                        commentMarker = Instantiate(marker);                                
-                        commentMarker.transform.SetParent(tracked.transform.Find("CommentParent"));
-                    }
-                    commentMarker.GetComponent<SphereCollider>().enabled = true;
-
-                    if (marker.transform.Find("ModelComment"))
-                    {
-                        Destroy(marker.transform.Find("ModelComment").gameObject);
-                        marker.transform.Find("marker").gameObject.SetActive(false);
-                    }
-                }
-
-                if (markerPanel.GetComponentInChildren<Text>().text == DrawPlaceString || markerPanel.GetComponentInChildren<Text>().text == DrawPlaceString3D)
-                {
-                    //ScreenshotPreview.SetActive(false);
-
-                    drawTouchReleased = false;
-                    manager.enabled = false;
-
-                    tracked.transform.SetParent(transform);
-                    drawOrigin = tracked.transform.localPosition;
-                    drawRot = tracked.transform.localRotation;
-
-                   
-                    GameObject spawned = Instantiate(Line, Vector3.zero, Quaternion.identity, commentMarker.transform);
-                    lineRenderer = spawned.GetComponent<LineRenderer>();
-                    spawned.transform.localPosition = Vector3.zero;
-                    spawned.transform.localRotation = Quaternion.identity;
-
-                    marker.SetActive(false);
-                    
-                    markerPanel.GetComponentInChildren<Text>().text = ScreenshotWindowString;
-                    //photoButton.SetActive(true);
-                    
-
-                }
-                else
-                {
-                    
-                    field.transform.parent.gameObject.SetActive(true);
-                    field.Select();
-                    markerPanel.SetActive(false);
-                    marker.SetActive(false);
-                    //ScreenshotPreview.SetActive(false);
-                }
-            }
-        }
-        
-    }
-    */
 
     public void Place()
     {
-        if (markerPanel.GetComponentInChildren<Text>().text == DrawString) //wird aufgerufen wenn nach dem zeichnen im update bestätigt wird
+        if (markerPanel.GetComponentInChildren<Text>().text == DrawString) 
         {
             //freezeBackground = false;
 
-            markerPanel.SetActive(false);   //ab hier passiert erst beim bestätigen, davor ist die update zeichenversion aktiv
+            markerPanel.SetActive(false); 
             field.transform.parent.gameObject.SetActive(true);
             field.Select();
         }
@@ -503,12 +331,9 @@ public class CommentDraw : MonoBehaviour
                 {
                     commentMarker = hitInfo.collider.gameObject;
                     field.text = commentMarker.GetComponent<Comment>().text;
-
-
                 }
                 else
                 {
-                   
                     if (marker.transform.parent)
                         commentMarker = Instantiate(marker, marker.transform.parent);
                     else
@@ -530,13 +355,10 @@ public class CommentDraw : MonoBehaviour
                     drawTouchReleased = false;
                     manager.enabled = false;
 
-                    
-
                     tracked.transform.SetParent(transform);
                     drawOrigin = tracked.transform.localPosition;
                     drawRot = tracked.transform.localRotation;
 
-                    //hier soll ein screenshot gemacht werden
                     //freezeBackground = true;
 
                     markerPanel.GetComponentInChildren<Text>().text = DrawString;
@@ -557,23 +379,17 @@ public class CommentDraw : MonoBehaviour
                 }
             }
         }
-
     }
 
 
 
     public void OnPostRender() //screenshot
     {
-        //freezeBackground = true; //test
-        //if (freezeBackground)
-        //{
         //Screenshot.TakeScreenshot_Static(Screen.width, Screen.height);
         //IMG2Sprite.GetPhoto_static();
 
         //freezeBackground = false;
-        //}
-
-
+        
     }
 
 
@@ -589,15 +405,9 @@ public class CommentDraw : MonoBehaviour
         }
         else
         {
-
-            
             Comment comment = commentMarker.GetComponent<Comment>();
-            //Messages messages = messageMarker.GetComponent<Messages>();
-
-            comment.chat = chatText.text; //chat
-            //messages.likes = like;
-            //messages.dislikes = dislike;
-
+            
+            comment.chat = chatText.text; 
             comment.text = field.text;
             comment.enabled = true;
             commentMarker = null;
@@ -606,7 +416,7 @@ public class CommentDraw : MonoBehaviour
         if (lineRenderer)
         {
             lineRenderer.enabled = false;
-            if (!is3D) //in AR mode tracked has to be null
+            if (!is3D) 
             {
                 tracked.transform.parent = null;
                 manager.enabled = true;
@@ -616,7 +426,6 @@ public class CommentDraw : MonoBehaviour
         field.transform.parent.gameObject.SetActive(false);
         field.text = "";
         chatText.text = "";
-
     }
 
 
@@ -676,12 +485,8 @@ public class CommentDraw : MonoBehaviour
             return;
 
         chatbox.SetActive(true);
-        PopupPanel.SetActive(false);
-        menuPanel.SetActive(false);  //try
+        menuPanel.SetActive(false); 
      
-
-        
-        
         chatText.text = comment.chat;
 
         field.text = comment.text;
@@ -691,85 +496,20 @@ public class CommentDraw : MonoBehaviour
         if (line)
             line.enabled = true;
     }
-    /*
-    public void Like ()
-    {
-        like++;
-    }
-
-    public void Dislike ()
-    {
-        dislike ++ ;
-    }
-    */
-
+   
     public void TaskOnClick() //chat
     {
-        float counter = 1;
-
         if (inputField.text != "")
         {
-
-
             string currentTime = DateTime.Now.ToString("ddd, dd.MM.yy HH:mm");
-
             message = inputField.text;
-
-            /*
-            Button btn = LikeButton.GetComponent<Button>();
-            btn.onClick.AddListener(Like);
-            Button btn2 = DislikeButton.GetComponent<Button>();
-            btn2.onClick.AddListener(Dislike);
-
-
-            
-             chatMarker = Instantiate(messageMarker, messageMarker.transform.parent);
-
-            Messages.nr = counter;
-            Messages.text = message;
-            Messages.created = currentTime;
-            Messages.likes = like;
-            Messages.dislikes = dislike;
-
-            */
-
-
-
-            /*
-             * if (like == 0 && dislike != 0)
-            {
-                chatText.text += "[" + currentTime + "] <link=linktest> like/dislike </link>   Dislikes: " + dislike + Environment.NewLine + message + Environment.NewLine + Environment.NewLine;
-            }
-            if (dislike == 0 && like != 0)
-            {
-                chatText.text += "[" + currentTime + "]  <link=linktest> like/dislike </link>Likes: " + like + Environment.NewLine + message + Environment.NewLine + Environment.NewLine;
-            }
-            
-            if (like == 0 && dislike == 0)
-            {
-                chatText.text += "[nr "+counter + currentTime + "] <link=linktest> like/dislike </link>" + Environment.NewLine + message + Environment.NewLine + Environment.NewLine;
-            }
-            else
-            {
-                chatText.text += "[nr "+counter + currentTime + "] <link=linktest> like/dislike </link> Likes: " + like + "  Dislikes: " + dislike + Environment.NewLine + message + Environment.NewLine + Environment.NewLine;
-            }
-            */
-
             chatText.text += "[" + currentTime + "]: "+ Environment.NewLine + message + Environment.NewLine + Environment.NewLine;
 
             message = null;
             inputField.text = string.Empty;
-
-            //counter++;
-
-            
         }
-
     }
 
-
-
-    
 
     public void SwitchAR3D()
     {
@@ -784,8 +524,6 @@ public class CommentDraw : MonoBehaviour
                     tracked.SetActive(false);
                     tracked.transform.parent = null;
                     manager.enabled = true;
-               
-                  
                 }
                 else
                 {
@@ -828,23 +566,20 @@ public class CommentDraw : MonoBehaviour
 
                 GetComponent<ARCameraBackground>().enabled = false;
 
-
                 is3D = true;
             }
 
         }
-        else // !tracked, anfangszustand
+        else // !tracked, beginning state
         {
             if (is3D) 
             {
                 
             }
-            else //Ar switches to 3D for the first time, initiating tracked as the plane+panels
+            else //Ar switches to 3D for the first time
             {
-                
-
                 manager.enabled = false;
-                tracked = Instantiate(manager.trackedImagePrefab); //important for changing models, imports model in 3d model
+                tracked = Instantiate(manager.trackedImagePrefab);
 
                 tracked.transform.Find("Image 2").GetComponent<MeshRenderer>().enabled = true;
 
@@ -855,15 +590,6 @@ public class CommentDraw : MonoBehaviour
                 tracked.transform.localEulerAngles = new Vector3(0, yaw, 0);
                 tracked.transform.Rotate(Camera.main.transform.right, pitch, Space.World);
 
-                
-               /* //trying to stabilise lines
-                lines.AddRange(GameObject.FindGameObjectsWithTag("billboard"));
-                foreach (GameObject go in lines)
-                {
-                    go.GetComponent<LineRenderer>().transform.SetParent(tracked.transform);
-
-                }
-               */
 
                 if (markerPanel.GetComponentInChildren<Text>().text == CommentARString)
                     markerPanel.GetComponentInChildren<Text>().text = Comment3DString;
@@ -883,19 +609,18 @@ public class CommentDraw : MonoBehaviour
         }
     }
 
+    //toggles for floors
+
     public void ToggleEG(Toggle toggleEG)
     {
         if (toggleEG.isOn)
         {
             GameObject.FindGameObjectWithTag("eg").GetComponent<MeshRenderer>().enabled = true;
             GameObject.FindGameObjectWithTag("campus").GetComponent<MeshRenderer>().enabled = false;
-           // GameObject.FindGameObjectWithTag("campus").GetComponent<MeshCollider>().enabled = false;
-
         }
         else
         {
             GameObject.FindGameObjectWithTag("eg").GetComponent<MeshRenderer>().enabled = false;
-           // GameObject.FindGameObjectWithTag("eg").GetComponent<MeshCollider>().enabled = false;
         }
         
     }
@@ -906,13 +631,10 @@ public class CommentDraw : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("og1").GetComponent<MeshRenderer>().enabled = true;
             GameObject.FindGameObjectWithTag("campus").GetComponent<MeshRenderer>().enabled = false;
-            //GameObject.FindGameObjectWithTag("campus").GetComponent<MeshCollider>().enabled = false;
         }
         else
         {
             GameObject.FindGameObjectWithTag("og1").GetComponent<MeshRenderer>().enabled = false;
-           // GameObject.FindGameObjectWithTag("og1").GetComponent<MeshCollider>().enabled = false;
-
         }
     }
 
@@ -922,12 +644,10 @@ public class CommentDraw : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("og2").GetComponent<MeshRenderer>().enabled = true;
             GameObject.FindGameObjectWithTag("campus").GetComponent<MeshRenderer>().enabled = false;
-           //GameObject.FindGameObjectWithTag("campus").GetComponent<MeshCollider>().enabled = false;
         }
         else
         {
             GameObject.FindGameObjectWithTag("og2").GetComponent<MeshRenderer>().enabled = false;
-           // GameObject.FindGameObjectWithTag("og2").GetComponent<MeshCollider>().enabled = false;
         }
     }
 
@@ -951,8 +671,6 @@ public class CommentDraw : MonoBehaviour
             foreach (GameObject go in infos)
             {
                 go.SetActive(true);
-                //go.transform.SetParent(Camera.main.transform);
-                
             }
             button.GetComponent<Image>().color = button.colors.normalColor;
         }
@@ -994,7 +712,6 @@ public class CommentDraw : MonoBehaviour
             foreach (GameObject go in drawings)
             {
                 if (go.GetComponentInChildren<LineRenderer>() && (go.GetComponentInChildren<ModelMarker>() is null))
-                //only markers with lineRenderer
                 {
                     go.SetActive(false);
                 }
@@ -1006,7 +723,6 @@ public class CommentDraw : MonoBehaviour
             foreach (GameObject go in drawings)
             {
                 if (go.GetComponentInChildren<LineRenderer>() && (go.GetComponentInChildren<ModelMarker>() is null))
-                //only markers with lineRenderer
                 {
                     go.SetActive(true);
                 }
@@ -1024,7 +740,6 @@ public class CommentDraw : MonoBehaviour
             foreach (GameObject go in models)
             {
                 if (go.GetComponentInChildren<ModelMarker>() && (go.GetComponentInChildren<LineRenderer>() is null) )
-                //only markers with skriptmarker
                 {
                     go.SetActive(false);
                 }
@@ -1036,7 +751,6 @@ public class CommentDraw : MonoBehaviour
             foreach (GameObject go in models) 
             {
                 if (go.GetComponentInChildren<ModelMarker>() && (go.GetComponentInChildren<LineRenderer>() is null))
-                //only markers with skriptmarker
                 {
                     go.SetActive(true);
                 }
@@ -1096,8 +810,6 @@ public class CommentDraw : MonoBehaviour
         spawned.transform.localRotation = Quaternion.identity;
         spawned.transform.localScale = Vector3.one;
 
-        //models.Add(marker);
-
         var type = Type.GetType("ModelMarker");
         marker.AddComponent(type);
 
@@ -1110,8 +822,5 @@ public class CommentDraw : MonoBehaviour
             markerPanel.GetComponentInChildren<Text>().text = ModelPlaceString;
         markerPanel.SetActive(true);
 
-        
     }
-
-
 }

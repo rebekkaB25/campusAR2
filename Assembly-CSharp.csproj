@@ -161,7 +161,6 @@
     <Compile Include="Assets\Scripts\FastObjImporter.cs" />
     <Compile Include="Assets\Scripts\FixationPoint2DVisualizer.cs" />
     <Compile Include="Assets\Scripts\FixationPoint3DVisualizer.cs" />
-    <Compile Include="Assets\Scripts\FloorToggles.cs" />
     <Compile Include="Assets\Scripts\HumanBodyTracker.cs" />
     <Compile Include="Assets\Scripts\IMG2Sprite.cs" />
     <Compile Include="Assets\Scripts\KeepScale.cs" />
